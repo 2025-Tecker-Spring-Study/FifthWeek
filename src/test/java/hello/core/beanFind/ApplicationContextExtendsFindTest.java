@@ -1,10 +1,8 @@
 package hello.core.beanFind;
 
-import hello.core.discount.Discount_policy;
-import hello.core.discount.FixDiscount_policy;
-import hello.core.discount.RateDiscount_policy;
-import hello.core.member.MemberService;
-import hello.core.member.MemberServiceImpl;
+import hello.core.discount.DiscountPolicy;
+import hello.core.discount.FixDiscountPolicy;
+import hello.core.discount.RateDiscountPolicy;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
@@ -23,26 +21,26 @@ class ApplicationContextExtendsFindTest {
     void findBeanByParentTypeDuplicate() {
         //Discount_policy bean = ac.getBean(Discount_policy.class);
         assertThrows(NoUniqueBeanDefinitionException.class, () ->
-                ac.getBean(Discount_policy.class));
+                ac.getBean(DiscountPolicy.class));
     }
     @Test
     @DisplayName("부모 타입으로 조회시, 자식이 둘 이상 있으면, 빈 이름을 지정하면 된다")
     void findBeanByParentTypeBeanName() {
-        Discount_policy rateDiscount_policy = ac.getBean("rateDiscount_policy",
-                Discount_policy.class);
-        assertThat(rateDiscount_policy).isInstanceOf(RateDiscount_policy.class);
+        DiscountPolicy rateDiscountpolicy = ac.getBean("rateDiscountPolicy",
+                DiscountPolicy.class);
+        assertThat(rateDiscountpolicy).isInstanceOf(RateDiscountPolicy.class);
     }
     @Test
     @DisplayName("특정 하위 타입으로 조회")
     void findBeanBySubType() {
-        RateDiscount_policy bean = ac.getBean(RateDiscount_policy.class);
-        assertThat(bean).isInstanceOf(RateDiscount_policy.class);
+        RateDiscountPolicy bean = ac.getBean(RateDiscountPolicy.class);
+        assertThat(bean).isInstanceOf(RateDiscountPolicy.class);
     }
     @Test
     @DisplayName("부모 타입으로 모두 조회하기")
     void findAllBeanByParentType() {
-        Map<String, Discount_policy> beansOfType =
-                ac.getBeansOfType(Discount_policy.class);
+        Map<String, DiscountPolicy> beansOfType =
+                ac.getBeansOfType(DiscountPolicy.class);
         assertThat(beansOfType.size()).isEqualTo(2);
         for (String key : beansOfType.keySet()) {
             System.out.println("key = " + key + " value=" +
@@ -61,12 +59,12 @@ class ApplicationContextExtendsFindTest {
     @Configuration
     static class TestConfig {
         @Bean
-        public Discount_policy rateDiscount_policy() {
-            return new RateDiscount_policy();
+        public DiscountPolicy rateDiscountPolicy() {
+            return new RateDiscountPolicy();
         }
         @Bean
-        public Discount_policy fixDiscount_policy() {
-            return new FixDiscount_policy();
+        public DiscountPolicy fixDiscountPolicy() {
+            return new FixDiscountPolicy();
         }
     }
 }

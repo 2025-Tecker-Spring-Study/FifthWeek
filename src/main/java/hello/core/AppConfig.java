@@ -1,8 +1,7 @@
 package hello.core;
 
-import hello.core.discount.Discount_policy;
-import hello.core.discount.FixDiscount_policy;
-import hello.core.discount.RateDiscount_policy;
+import hello.core.discount.DiscountPolicy;
+import hello.core.discount.RateDiscountPolicy;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemberService;
 import hello.core.member.MemberServiceImpl;
@@ -33,9 +32,9 @@ public class AppConfig {
     }
 
     @Bean
-    private static Discount_policy discountPolicy() {
+    private static DiscountPolicy discountPolicy() {
         System.out.println("call AppConfig.discountPolicy");
         // return new FixDiscount_policy();
-        return new RateDiscount_policy();
+        return new RateDiscountPolicy();
     }
 }

@@ -8,8 +8,8 @@
     <bean id="memberRepository"
           class="hello.core.member.MemoryMemberRepository" />
     <bean id="orderService" class="hello.core.order.OrderServiceImpl">
-        <constructor-arg name="discount_policy" ref="discount_policy" />
+        <constructor-arg name="discountPolicy" ref="discountPolicy" />
         <constructor-arg name="memberRepository" ref="memberRepository" />
     </bean>
-    <bean id="discount_policy" class="hello.core.discount.RateDiscount_policy" />
+    <bean id="discountPolicy" class="hello.core.discount.RateDiscountPolicy" />
 </beans>

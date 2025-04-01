@@ -6,11 +6,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class RateDiscount_policyTest {
 
-    Discount_policy discount_policy = new RateDiscount_policy();
+    DiscountPolicy discount_policy = new RateDiscountPolicy();
     @Test
     @DisplayName("VIP는 10% 할인이 적용되어야 한다")
     void vip_o(){
@@ -28,6 +26,6 @@ class RateDiscount_policyTest {
         Member member = new Member(2L, "memberVIP", Grade.Basic);
         // when
         int discount = discount_policy.discount(member, 10000);
-        Assertions.assertEquals(discount,1000);
+        Assertions.assertEquals(discount,0);
     }
 }

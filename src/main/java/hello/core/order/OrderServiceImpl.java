@@ -1,20 +1,24 @@
 package hello.core.order;
 
-import hello.core.discount.Discount_policy;
-import hello.core.discount.FixDiscount_policy;
-import hello.core.discount.RateDiscount_policy;
+import hello.core.annotation.MainDiscountPolicy;
+import hello.core.discount.DiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
-import hello.core.member.MemoryMemberRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@RequiredArgsConstructor
+@Component
 public class OrderServiceImpl implements OrderService{
-    // Discount_policy discount_policy = new FixDiscount_policy();
-    // Discount_policy discount_policy = new RateDiscount_policy();
-    private final Discount_policy discount_policy;
+    // discountPolicy discountPolicy = new FixdiscountPolicy();
+    // discountPolicy discountPolicy = new RatediscountPolicy();
+    private final DiscountPolicy discountPolicy;
     private final MemberRepository memberRepository;
 
-    public OrderServiceImpl(Discount_policy discount_policy, MemberRepository memberRepository) {
-        this.discount_policy = discount_policy;
+    @Autowired
+    public OrderServiceImpl(@MainDiscountPolicy DiscountPolicy discountPolicy, MemberRepository memberRepository) {
+        this.discountPolicy = discountPolicy;
         this.memberRepository = memberRepository;
     }
 
@@ -22,7 +26,7 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public Order createOrder(Long member_id, String item_name, int item_price) {
         Member member = memberRepository.findById(member_id);
-        int discount_price = discount_policy.discount(member,item_price);
+        int discount_price = discountPolicy.discount(member,item_price);
         return new Order(member_id,item_name, item_price, discount_price);
     }
 //  테스트용도
