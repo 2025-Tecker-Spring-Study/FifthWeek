@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@RequiredArgsConstructor
+// @RequiredArgsConstructor
 @Component
 public class OrderServiceImpl implements OrderService{
     // discountPolicy discountPolicy = new FixdiscountPolicy();
